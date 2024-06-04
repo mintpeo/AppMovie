@@ -2,10 +2,10 @@ package com.example.myappmovielastup.model;
 
 import java.util.List;
 
-public class SanPhamMoiModel {
+public class PhimMoiModel {
     boolean success;
     String message;
-    List<SanPhamMoi> result;
+    List<PhimMoi> result;
 
     public boolean isSuccess() {
         return success;
@@ -23,11 +23,11 @@ public class SanPhamMoiModel {
         this.message = message;
     }
 
-    public List<SanPhamMoi> getResult() {
+    public List<PhimMoi> getResult() {
         return result;
     }
 
-    public void setResult(List<SanPhamMoi> result) {
+    public void setResult(List<PhimMoi> result) {
         this.result = result;
     }
 }
