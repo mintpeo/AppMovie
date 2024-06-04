@@ -2,10 +2,10 @@ package com.example.myappmovielastup.model;
 
 import java.util.List;
 
-public class LoaiSpModel {
+public class LoaiPhimModel {
     boolean success;
     String message;
-    List<LoaiSp> result;
+    List<LoaiPhim> result;
 
     public boolean isSuccess() {
         return success;
@@ -23,11 +23,11 @@ public class LoaiSpModel {
         this.message = message;
     }
 
-    public List<LoaiSp> getResult() {
+    public List<LoaiPhim> getResult() {
         return result;
     }
 
-    public void setResult(List<LoaiSp> result) {
+    public void setResult(List<LoaiPhim> result) {
         this.result = result;
     }
 }

@@ -20,8 +20,8 @@
             
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbarmanhinhchinh"
-                app:title="Home"
-                android:background="#ff00dfff"
+                app:title="TRANG CHỦ"
+                app:titleTextColor="#03599D"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize">
             </androidx.appcompat.widget.Toolbar>
@@ -33,19 +33,21 @@
             </ViewFlipper>
 
             <LinearLayout
-                android:background="#5992d2"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:textSize="20sp"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@android:color/holo_red_light"
-                    android:textStyle="bold"
-                    android:text="New Movie"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="phim đang chiếu"
+                    android:textAllCaps="true"
+                    android:textColor="#03599D"
+                    android:textSize="25sp"
+                    android:textStyle="bold">
                 </TextView>
 
                 <androidx.recyclerview.widget.RecyclerView

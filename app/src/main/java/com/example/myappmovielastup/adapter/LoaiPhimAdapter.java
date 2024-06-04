@@ -10,16 +10,16 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.myappmovielastup.R;
-import com.example.myappmovielastup.model.LoaiSp;
+import com.example.myappmovielastup.model.LoaiPhim;
 
 import java.util.List;
 
-public class LoaiSpAdapter extends BaseAdapter {
+public class LoaiPhimAdapter extends BaseAdapter {
 
-    List<LoaiSp> array;
+    List<LoaiPhim> array;
     Context context;
 
-    public LoaiSpAdapter(Context context, List<LoaiSp> array) {
+    public LoaiPhimAdapter(Context context, List<LoaiPhim> array) {
         this.array = array;
         this.context = context;
     }
@@ -57,8 +57,8 @@ public class LoaiSpAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.texttensp.setText(array.get(position).gettensanpham());
-        Glide.with(context).load(array.get(position).getHinhanh()).into(viewHolder.imghinhanh);
+        viewHolder.texttensp.setText(array.get(position).getName());
+        Glide.with(context).load(array.get(position).getImage()).into(viewHolder.imghinhanh);
         return convertView;
     }
 }

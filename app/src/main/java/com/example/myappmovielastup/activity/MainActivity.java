@@ -1,12 +1,14 @@
 package com.example.myappmovielastup.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -21,10 +23,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.myappmovielastup.R;
-import com.example.myappmovielastup.adapter.LoaiSpAdapter;
-import com.example.myappmovielastup.adapter.SanPhamMoiAdapter;
-import com.example.myappmovielastup.model.LoaiSp;
-import com.example.myappmovielastup.model.SanPhamMoi;
+import com.example.myappmovielastup.adapter.LoaiPhimAdapter;
+import com.example.myappmovielastup.adapter.PhimMoiAdapter;
+import com.example.myappmovielastup.model.LoaiPhim;
+import com.example.myappmovielastup.model.PhimMoi;
 import com.example.myappmovielastup.retrofit.ApiBanHang;
 import com.example.myappmovielastup.retrofit.RetrofitClient;
 import com.example.myappmovielastup.utils.Utils;
@@ -44,12 +46,12 @@ public class MainActivity extends AppCompatActivity {
     NavigationView navigationView;
     ListView listViewManHinhChinh;
     DrawerLayout drawerLayout;
-    LoaiSpAdapter loaiSpAdapter;
-    List<LoaiSp> mangloaisp;
+    LoaiPhimAdapter loaiPhimAdapter;
+    List<LoaiPhim> mangloaisp;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     ApiBanHang apiBanHang;
-    List<SanPhamMoi> mangspmoi;
-    SanPhamMoiAdapter spAdapter;
+    List<PhimMoi> mangspmoi;
+    PhimMoiAdapter spAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +64,52 @@ public class MainActivity extends AppCompatActivity {
         ActionBar();
 
         if (isConnected(this)) {
-            Toast.makeText(getApplicationContext(), "ok", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "ok", Toast.LENGTH_LONG).show();
             ActionViewFlipper();
             getLoaiSanPham();
             getSpMoi();
+            getEventClick();
         } else {
             Toast.makeText(getApplicationContext(), "ko co ket noi", Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void getEventClick() {
+        listViewManHinhChinh.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        Intent trangchu = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(trangchu);
+                        break;
+                    case 1:
+                        Intent dangnhap = new Intent(getApplicationContext(), null);
+                        startActivity(dangnhap);
+                        break;
+                    case 2:
+                        Intent dangphimP = new Intent(getApplicationContext(), TheLoaiActivity.class);
+                        dangphimP.putExtra("theloaiid", 1);
+                        startActivity(dangphimP);
+                        break;
+                    case 3:
+                        Intent dangphimT13 = new Intent(getApplicationContext(), TheLoaiActivity.class);
+                        dangphimT13.putExtra("theloaiid", 13);
+                        startActivity(dangphimT13);
+                        break;
+                    case 4:
+                        Intent dangphimT16 = new Intent(getApplicationContext(), TheLoaiActivity.class);
+                        dangphimT16.putExtra("theloaiid", 16);
+                        startActivity(dangphimT16);
+                        break;
+                    case 5:
+                        Intent dangphimT18 = new Intent(getApplicationContext(), TheLoaiActivity.class);
+                        dangphimT18.putExtra("theloaiid", 18);
+                        startActivity(dangphimT18);
+                        break;
+                }
+            }
+        });
     }
 
     private void getSpMoi() {
@@ -78,9 +119,10 @@ public class MainActivity extends AppCompatActivity {
                 .subscribe(
                         sanPhamMoiModel -> {
                             if (sanPhamMoiModel.isSuccess()) {
-                                mangspmoi = sanPhamMoiModel.getResult();
-                                spAdapter = new SanPhamMoiAdapter(getApplicationContext(), mangspmoi);
-                                recyclerViewManHinhChinh.setAdapter(spAdapter);
+                                    mangspmoi = sanPhamMoiModel.getResult();
+                                    spAdapter = new PhimMoiAdapter(getApplicationContext(), mangspmoi);
+                                    recyclerViewManHinhChinh.setAdapter(spAdapter);
+
                             }
                         }
                         ,throwable -> {
@@ -97,8 +139,8 @@ public class MainActivity extends AppCompatActivity {
                         loaiSpModel -> {
                             mangloaisp = loaiSpModel.getResult();
                             // khoi tao adapter
-                            loaiSpAdapter = new LoaiSpAdapter(getApplicationContext(), mangloaisp);
-                            listViewManHinhChinh.setAdapter(loaiSpAdapter);
+                            loaiPhimAdapter = new LoaiPhimAdapter(getApplicationContext(), mangloaisp);
+                            listViewManHinhChinh.setAdapter(loaiPhimAdapter);
 
 //                            if (loaiSpModel.isSuccess()) {
 //                                // Kiểm tra xem kết quả có null hoặc rỗng không
@@ -166,9 +208,6 @@ public class MainActivity extends AppCompatActivity {
         // khoi tao list
         mangloaisp = new ArrayList<>();
         mangspmoi = new ArrayList<>();
-        // khoi tao adapter
-//        loaiSpAdapter = new LoaiSpAdapter(getApplicationContext(), mangloaisp);
-//        listViewManHinhChinh.setAdapter(loaiSpAdapter);
     }
 
     private boolean isConnected(Context context) {
