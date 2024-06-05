@@ -1,16 +1,19 @@
-package com.example.myapp;
+package src.admin.model;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ViewCustomersActivity extends AppCompatActivity {
 
     private ListView lvCustomers;
-    private DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,19 +21,22 @@ public class ViewCustomersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_customers);
 
         lvCustomers = findViewById(R.id.lvCustomers);
-        dbHelper = new DatabaseHelper(this);
 
-        loadCustomers();
-    }
+        ApiService apiService = ApiClient.getRetrofitInstance().create(ApiService.class);
+        Call<List<Customer>> call = apiService.getCustomers();
 
-    private void loadCustomers() {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.query("KhachHang", null, null, null, null, null, null);
+        call.enqueue(new Callback<List<Customer>>() {
+            @Override
+            public void onResponse(Call<List<Customer>> call, Response<List<Customer>> response) {
+                List<Customer> customers = response.body();
+                ArrayAdapter<Customer> adapter = new ArrayAdapter<>(ViewCustomersActivity.this, android.R.layout.simple_list_item_1, customers);
+                lvCustomers.setAdapter(adapter);
+            }
 
-        String[] from = {"MaKH", "HoTen", "SDT"};
-        int[] to = {R.id.tvMaKH, R.id.tvHoTen, R.id.tvSDT};
-
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.item_customer, cursor, from, to, 0);
-        lvCustomers.setAdapter(adapter);
+            @Override
+            public void onFailure(Call<List<Customer>> call, Throwable t) {
+                // Xử lý lỗi kết nối
+            }
+        });
     }
 }

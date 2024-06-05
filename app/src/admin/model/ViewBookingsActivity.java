@@ -1,16 +1,19 @@
-package com.example.myapp;
+package src.admin.model;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ViewBookingsActivity extends AppCompatActivity {
 
     private ListView lvBookings;
-    private DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,19 +21,23 @@ public class ViewBookingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_bookings);
 
         lvBookings = findViewById(R.id.lvBookings);
-        dbHelper = new DatabaseHelper(this);
 
-        loadBookings();
-    }
+        ApiService apiService = ApiClient.getRetrofitInstance().create(ApiService.class);
+        Call<List<Booking>> call = apiService.getBookings();
 
-    private void loadBookings() {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.query("Ve", null, null, null, null, null, null);
+        call.enqueue(new Callback<List<Booking>>() {
+            @Override
+            public void onResponse(Call<List<Booking>> call, Response<List<Booking>> response) {
+                List<Booking> bookings = response.body();
+                ArrayAdapter<Booking> adapter = new ArrayAdapter<>(ViewBookingsActivity.this, android.R.layout.simple_list_item_1, bookings);
+                lvBookings.setAdapter(adapter);
+            }
 
-        String[] from = {"MaVe", "MaKH", "NgayBanVe"};
-        int[] to = {R.id.tvMaVe, R.id.tvMaKH, R.id.tvNgayBanVe};
-
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.item_booking, cursor, from, to, 0);
-        lvBookings.setAdapter(adapter);
+            @Override
+            public void onFailure(Call<List<Booking>> call, Throwable t) {
+                // Xử lý lỗi kết nối
+            }
+        });
     }
 }
+

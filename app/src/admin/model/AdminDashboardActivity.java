@@ -1,4 +1,4 @@
-package com.example.myapp;
+package src.admin.model;
 
 import android.content.Intent;
 import android.os.Bundle;
