@@ -12,7 +12,7 @@
         android:weightSum="10"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="120dp">
 
         <ImageView
             android:id="@+id/itemdp_image"
@@ -48,10 +48,20 @@
             </TextView>
 
             <TextView
-                android:id="@+id/itemdp_theloai"
-                android:textSize="16sp"
+                android:id="@+id/itemdp_ngonngu"
+                android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="Thể loại"
+                android:text="Ngôn ngữ"
+                android:textColor="@android:color/holo_red_light"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TextView>
+
+            <TextView
+                android:id="@+id/itemdp_thoiluong"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="Thời lượng"
                 android:textColor="@android:color/holo_red_light"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
