@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ import com.example.myappmovielastup.retrofit.ApiBanHang;
 import com.example.myappmovielastup.retrofit.RetrofitClient;
 import com.example.myappmovielastup.utils.Utils;
 import com.google.android.material.navigation.NavigationView;
+import com.nex3z.notificationbadge.NotificationBadge;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +40,7 @@ import java.util.List;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import okhttp3.internal.Util;
 
 public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
@@ -52,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
     ApiBanHang apiBanHang;
     List<PhimMoi> mangspmoi;
     PhimMoiAdapter spAdapter;
+    NotificationBadge badge;
+    FrameLayout frameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(trangchu);
                         break;
                     case 1:
-                        Intent dangnhap = new Intent(getApplicationContext(), null);
+                        Intent dangnhap = new Intent(getApplicationContext(), GiaVeActivity.class);
                         startActivity(dangnhap);
                         break;
                     case 2:
@@ -165,9 +170,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void ActionViewFlipper() {
         List<String> mangquangcao = new ArrayList<>();
-        mangquangcao.add("https://files.betacorp.vn/media/images/2024/05/24/combo-hoc-sinh-sinh-vien-1702-x-621-3-134524-240524-28.png");
+        mangquangcao.add("https://files.betacorp.vn/media/images/2024/05/31/sap-khai-truong-uvk-2-1702-x-621-3-183048-310524-81.png");
         mangquangcao.add("https://files.betacorp.vn/media/images/2024/05/24/combo-groupsale-1702-x-621-3-134140-240524-17.png");
         mangquangcao.add("https://files.betacorp.vn/media/images/2024/05/24/1702x621-3-142118-240524-87.png");
+        mangquangcao.add("https://files.betacorp.vn/media/images/2024/06/03/don-tet-thieu-nhi-1702-x-621-162045-030624-41.png");
 
         for (int i = 0; i < mangquangcao.size(); i++) {
             ImageView imageView = new ImageView(getApplicationContext());
@@ -205,9 +211,38 @@ public class MainActivity extends AppCompatActivity {
         listViewManHinhChinh = findViewById(R.id.listviewmanhinhchinh);
         navigationView = findViewById(R.id.navigationview);
         drawerLayout = findViewById(R.id.drawlayout);
+        badge = findViewById(R.id.main_sl);
+        frameLayout = findViewById(R.id.main_framegiohang);
         // khoi tao list
         mangloaisp = new ArrayList<>();
         mangspmoi = new ArrayList<>();
+
+        if (Utils.manggiohang == null) {
+            Utils.manggiohang = new ArrayList<>();
+        } else {
+            int totalItem = 0;
+            for (int i = 0; i < Utils.manggiohang.size(); i++) {
+                totalItem = totalItem + Utils.manggiohang.get(i).getSoluong();
+            }
+            badge.setText(String.valueOf(totalItem));
+        }
+        frameLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent giohang = new Intent(getApplicationContext(), GioHangActivity.class);
+                startActivity(giohang);
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        int totalItem = 0;
+        for (int i = 0; i < Utils.manggiohang.size(); i++) {
+            totalItem = totalItem + Utils.manggiohang.get(i).getSoluong();
+        }
+        badge.setText(String.valueOf(totalItem));
     }
 
     private boolean isConnected(Context context) {

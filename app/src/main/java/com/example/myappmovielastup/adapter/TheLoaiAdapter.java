@@ -51,8 +51,9 @@ public class TheLoaiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             MyViewHolder myViewHolder = (MyViewHolder) holder;
             PhimMoi phim = array.get(position);
             myViewHolder.tenphim.setText(phim.getTen());
-            myViewHolder.daodien.setText(phim.getDaodien());
-            myViewHolder.theloai.setText(phim.getNgonngu());
+            myViewHolder.daodien.setText("Đạo diễn: " + phim.getDaodien());
+            myViewHolder.ngonngu.setText("Ngôn ngữ: " + phim.getNgonngu());
+            myViewHolder.thoiluong.setText("Thời lượng: " + phim.getThoiluong());
             Glide.with(context).load(phim.getHinhanh()).into(myViewHolder.hinhanh);
             myViewHolder.setItemClickListener(new ItemClickListener() {
                 @Override
@@ -91,15 +92,16 @@ public class TheLoaiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView tenphim, daodien, theloai;
+        TextView tenphim, daodien, ngonngu, thoiluong;
         ImageView hinhanh;
         private ItemClickListener itemClickListener;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             tenphim = itemView.findViewById(R.id.itemdp_ten);
             daodien = itemView.findViewById(R.id.itemdp_daodien);
-            theloai = itemView.findViewById(R.id.itemdp_theloai);
+            ngonngu = itemView.findViewById(R.id.itemdp_ngonngu);
             hinhanh = itemView.findViewById(R.id.itemdp_image);
+            thoiluong = itemView.findViewById(R.id.itemdp_thoiluong);
             itemView.setOnClickListener(this);
         }
 

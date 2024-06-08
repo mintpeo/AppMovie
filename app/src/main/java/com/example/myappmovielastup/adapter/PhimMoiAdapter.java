@@ -44,7 +44,17 @@ public class PhimMoiAdapter extends RecyclerView.Adapter<PhimMoiAdapter.MyViewHo
         holder.txtten.setText(phimMoi.getTen());
 //        DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
 //        holder.txtgia.setText("Giá: " +decimalFormat.format(loaiVe.getDonGia()) + "Đ");
-        holder.txtgia.setText("Thời lượng: " + phimMoi.getThoiluong());
+
+        if (phimMoi.getTheloaiid() == 1)
+            holder.theloai.setText("Thể loại: Mọi lứa tuổi");
+        if (phimMoi.getTheloaiid() == 13)
+            holder.theloai.setText("Thể loại: Trên 13 tuổi");
+        if (phimMoi.getTheloaiid() == 16)
+            holder.theloai.setText("Thể loại: Trên 16 tuổi");
+        if (phimMoi.getTheloaiid() == 18)
+            holder.theloai.setText("Thể loại: Trên 18 tuổi");
+
+        holder.txtthoiluong.setText("Thời lượng: " + phimMoi.getThoiluong());
         Glide.with(context).load(phimMoi.getHinhanh()).into(holder.imghinhanh);
 
         holder.setItemClickListener(new ItemClickListener() {
@@ -68,16 +78,16 @@ public class PhimMoiAdapter extends RecyclerView.Adapter<PhimMoiAdapter.MyViewHo
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView txtgia;
-        TextView txtten;
+        TextView txtthoiluong, txtten, theloai;
         ImageView imghinhanh;
 
         private ItemClickListener itemClickListener;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtgia = itemView.findViewById(R.id.itemsp_gia);
+            txtthoiluong = itemView.findViewById(R.id.itemsp_thoiluong);
             txtten = itemView.findViewById(R.id.itemsp_ten);
+            theloai = itemView.findViewById(R.id.itemsp_theloai);
             imghinhanh = itemView.findViewById(R.id.itemsp_image);
 
             itemView.setOnClickListener(this);
