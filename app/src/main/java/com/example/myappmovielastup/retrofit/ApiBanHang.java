@@ -10,12 +10,15 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface ApiBanHang {
+    // thanh menu
     @GET("toolbarproduct.php")
     Observable<LoaiPhimModel> getLoaiSp();
 
+    // hien thi san pham
     @GET("sanphammoi.php")
     Observable<PhimMoiModel> getSpMoi();
 
+    // phan loai phim
     @POST("dangphim.php")
     @FormUrlEncoded
     Observable<PhimMoiModel> getPhim(

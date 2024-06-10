@@ -12,6 +12,7 @@ public class PhimMoi implements Serializable {
     String ngonngu;
     int theloaiid;
     String mota;
+    String giave = "60000";
 
     public int getId() {
         return id;
@@ -83,5 +84,13 @@ public class PhimMoi implements Serializable {
 
     public void setMota(String mota) {
         this.mota = mota;
+    }
+
+    public String getGiave() {
+        return giave;
+    }
+
+    public void setGiave(String giave) {
+        this.giave = giave;
     }
 }
