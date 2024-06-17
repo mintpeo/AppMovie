@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "297512321622",
+    "project_id": "appmobilenexfit",
+    "storage_bucket": "appmobilenexfit.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:297512321622:android:973cf23d9272447774f1f7",
+        "android_client_info": {
+          "package_name": "com.example.myappmovielastup"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_ujiAYz_eMhNpE87RnMTkPwchRC0Ra70"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

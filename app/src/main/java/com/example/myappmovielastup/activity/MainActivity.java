@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             getSpMoi();
             getEventClick();
         } else {
-            Toast.makeText(getApplicationContext(), "ko co ket noi", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "khong co ket noi", Toast.LENGTH_LONG).show();
         }
     }
 
