@@ -3,7 +3,6 @@ package com.example.myappmovielastup.activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -28,7 +27,7 @@ public class AdminActivity extends AppCompatActivity {
         productList = new ArrayList<>();
         populateProductList();
         adapter = new ProductAdapter(this, productList);
-        listView.setAdapter((ListAdapter) adapter);
+        listView.setAdapter(adapter);
 
         // Handle item clicks (optional)
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

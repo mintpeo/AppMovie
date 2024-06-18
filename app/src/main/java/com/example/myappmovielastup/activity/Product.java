@@ -1,7 +1,6 @@
 package com.example.myappmovielastup.activity;
 
 public class Product {
-
     private String productName;
     private String productType;
     private int imageResource;
