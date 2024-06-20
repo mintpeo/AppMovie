@@ -63,4 +63,6 @@ dependencies {
     implementation ("com.nex3z:notification-badge:1.0.4")
     // eventBus
     implementation("org.greenrobot:eventbus:3.3.1")
+    implementation ("io.github.pilgr:paperdb:2.7.2")
+
 }

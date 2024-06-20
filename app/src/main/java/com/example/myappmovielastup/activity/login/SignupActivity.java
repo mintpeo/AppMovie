@@ -2,68 +2,103 @@ package com.example.myappmovielastup.activity.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
-import com.example.myappmovielastup.databinding.ActivitySignupBinding;
+import com.example.myappmovielastup.R;
+import com.example.myappmovielastup.model.User;
+import com.example.myappmovielastup.retrofit.ApiBanHang;
+import com.example.myappmovielastup.retrofit.RetrofitClient;
+import com.example.myappmovielastup.utils.Utils;
+
+import java.nio.charset.StandardCharsets;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Scheduler;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
 public class SignupActivity extends AppCompatActivity {
-
-    ActivitySignupBinding binding;
-    DatabaseHelper databaseHelper;
+    EditText emailInput, passInput, cfPassInput;
+    AppCompatButton btnSignup;
+    ApiBanHang api;
+    CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivitySignupBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        initView();
+        redirect();
+    }
 
-        databaseHelper = new DatabaseHelper(this);
+    private void redirect() {
+        btnSignup.setOnClickListener(v -> signupProcess());
+    }
 
-        binding.signupButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String email = binding.signupEmail.getText().toString();
-                String password = binding.signupPassword.getText().toString();
-                String confirmPassword = binding.signupConfirm.getText().toString();
+    private void signupProcess() {
+        String email = emailInput.getText().toString().trim(),
+                pass = passInput.getText().toString().trim(),
+                cfPass = cfPassInput.getText().toString().trim();
+        if (TextUtils.isEmpty(email) && TextUtils.isEmpty(pass) && TextUtils.isEmpty(cfPass)) {
+            Toast.makeText(getApplicationContext(), "Hãy điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(email)) {
+            Toast.makeText(getApplicationContext(), "Hãy điền email", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(pass)) {
+            Toast.makeText(getApplicationContext(), "Hãy điền mật khẩu", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(cfPass)) {
+            Toast.makeText(getApplicationContext(), "Hãy xác nhận mật khẩu", Toast.LENGTH_SHORT).show();
 
-                if(email.equals("")||password.equals("")||confirmPassword.equals(""))
-                    Toast.makeText(SignupActivity.this, "All fields are mandatory", Toast.LENGTH_SHORT).show();
-                else{
-                    if(password.equals(confirmPassword)){
-                        Boolean checkUserEmail = databaseHelper.checkEmail(email);
+        } else {
+            if (!pass.equals(cfPass)) {
+                Toast.makeText(getApplicationContext(), "Mật khẩu không trùng khớp", Toast.LENGTH_SHORT).show();
+            } else {
 
-                        if(checkUserEmail == false){
-                            Boolean insert = databaseHelper.insertData(email, password);
+                compositeDisposable.add(api.signup(email, Authentication.getInstance().hashPass(pass))
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
 
-                            if(insert == true){
-                                Toast.makeText(SignupActivity.this, "Signup Successfully!", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
-                                startActivity(intent);
-                            }else{
-                                Toast.makeText(SignupActivity.this, "Signup Failed!", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                        else{
-                            Toast.makeText(SignupActivity.this, "User already exists! Please login", Toast.LENGTH_SHORT).show();
-                        }
-                    }else{
-                        Toast.makeText(SignupActivity.this, "Invalid Password!", Toast.LENGTH_SHORT).show();
-                    }
-                }
+                                userModel -> {
+                                    if (userModel.isSuccess()) {
+                                        Utils.userCurrent.setEmail(email);
+                                        Utils.userCurrent.setPass(pass);
+                                        Toast.makeText(getApplicationContext(), "Đăng kí thành công", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), userModel.getMess(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }, throwable -> Toast.makeText(getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show()
+                        )
+                );
+
             }
-        });
+        }
+    }
 
-        binding.loginRedirectText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
-        });
 
+    private void initView() {
+
+        api = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanHang.class);
+        emailInput = findViewById((R.id.emailSignup));
+        passInput = findViewById((R.id.passSignup));
+        cfPassInput = findViewById((R.id.cfPassSignup));
+        btnSignup = findViewById((R.id.signupButton));
+
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        compositeDisposable.clear();
+        super.onDestroy();
     }
 }
