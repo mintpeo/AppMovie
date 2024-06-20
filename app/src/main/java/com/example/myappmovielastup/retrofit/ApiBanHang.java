@@ -2,6 +2,7 @@ package com.example.myappmovielastup.retrofit;
 
 import com.example.myappmovielastup.model.LoaiPhimModel;
 import com.example.myappmovielastup.model.PhimMoiModel;
+import com.example.myappmovielastup.model.UserModel;
 
 import io.reactivex.rxjava3.core.Observable;
 import retrofit2.http.Field;
@@ -25,4 +26,21 @@ public interface ApiBanHang {
             //@Field("page") int page,
             @Field("theloaiid") int theloaiid
     );
+
+    // Đăng kí
+    @POST("register.php")
+    @FormUrlEncoded
+    Observable<UserModel> signup(
+            @Field("email") String email,
+            @Field("pass") String pass
+    );
+
+    // Đăng nhập
+    @POST("login.php")
+    @FormUrlEncoded
+    Observable<UserModel> login(
+            @Field("email") String email,
+            @Field("pass") String pass
+    );
+
 }
