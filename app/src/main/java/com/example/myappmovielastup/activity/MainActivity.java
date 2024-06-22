@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     ApiBanHang apiBanHang;
     List<PhimMoi> mangspmoi;
     PhimMoiAdapter spAdapter;
+    ImageView imgsearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         apiBanHang = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanHang.class);
 
         Anhxa();
+
         ActionBar();
 
         if (isConnected(this)) {
@@ -196,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void Anhxa() {
+        imgsearch = findViewById(R.id.imgsearch);
         toolbar = findViewById(R.id.toolbarmanhinhchinh);
         viewFlipper = findViewById(R.id.viewlipper);
         recyclerViewManHinhChinh = findViewById(R.id.recyclerview);
@@ -207,7 +210,13 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawlayout);
         // khoi tao list
         mangloaisp = new ArrayList<>();
-        mangspmoi = new ArrayList<>();
+        imgsearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private boolean isConnected(Context context) {

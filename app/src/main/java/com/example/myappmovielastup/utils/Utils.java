@@ -1,5 +1,5 @@
 package com.example.myappmovielastup.utils;
 
 public class Utils {
-    public static final String BASE_URL = "http://192.168.1.118/server/";
+    public static final String BASE_URL = "http://192.168.1.5/server/";
 }

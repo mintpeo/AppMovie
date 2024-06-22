@@ -24,6 +24,18 @@
                 app:titleTextColor="#03599D"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize">
+
+                <LinearLayout
+                    android:layout_gravity="right" android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="?attr/actionBarSize">
+                    <ImageView
+                        android:id="@+id/imgsearch"
+                        android:src="@drawable/ic_search_24"
+                        android:layout_width="wrap_content"
+                        android:layout_height="?attr/actionBarSize"/>
+
+                </LinearLayout>
             </androidx.appcompat.widget.Toolbar>
 
             <ViewFlipper
