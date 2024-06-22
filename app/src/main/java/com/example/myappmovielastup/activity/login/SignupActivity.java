@@ -3,7 +3,9 @@ package com.example.myappmovielastup.activity.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -23,18 +25,27 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class SignupActivity extends AppCompatActivity {
     EditText emailInput, passInput, cfPassInput;
     AppCompatButton btnSignup;
+    TextView signupRedirectText;
     ApiPhim api;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_signup);
         initView();
         redirect();
     }
 
     private void redirect() {
         btnSignup.setOnClickListener(v -> signupProcess());
+        signupRedirectText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void signupProcess() {
@@ -81,14 +92,12 @@ public class SignupActivity extends AppCompatActivity {
 
 
     private void initView() {
-
         api = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiPhim.class);
         emailInput = findViewById((R.id.emailSignup));
         passInput = findViewById((R.id.passSignup));
         cfPassInput = findViewById((R.id.cfPassSignup));
         btnSignup = findViewById((R.id.signupButton));
-
-
+        signupRedirectText = findViewById(R.id.signupRedirectText);
     }
 
     @Override
