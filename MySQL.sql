@@ -53,3 +53,17 @@ INSERT INTO toolbarproduct VALUES ('3', 'Mọi lứa tuổi', 'https://www.betac
 INSERT INTO toolbarproduct VALUES ('4', 'Trên 13 tuổi', 'https://www.betacinemas.vn/Assets/Common/icons/films/c-13.png');
 INSERT INTO toolbarproduct VALUES ('5', 'Trên 16 tuổi', 'https://www.betacinemas.vn/Assets/Common/icons/films/c-16.png');
 INSERT INTO toolbarproduct VALUES ('6', 'Trên 18 tuổi', 'https://www.betacinemas.vn/Assets/Common/icons/films/c-18.png');
+
+/*
+Bảng user
+*/
+CREATE TABLE `users` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`email` VARCHAR(255) NOT NULL,
+	`pass` VARCHAR(100) NOT NULL,
+	PRIMARY KEY (`id`),
+	UNIQUE INDEX `email` (`email`)
+)
+ENGINE=InnoDB;
+
+
