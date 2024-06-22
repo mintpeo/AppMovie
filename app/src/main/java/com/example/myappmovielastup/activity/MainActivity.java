@@ -24,11 +24,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.myappmovielastup.R;
+import com.example.myappmovielastup.activity.login.LoginActivity;
 import com.example.myappmovielastup.adapter.LoaiPhimAdapter;
 import com.example.myappmovielastup.adapter.PhimMoiAdapter;
 import com.example.myappmovielastup.model.LoaiPhim;
 import com.example.myappmovielastup.model.PhimMoi;
-import com.example.myappmovielastup.retrofit.ApiBanHang;
+import com.example.myappmovielastup.retrofit.ApiPhim;
 import com.example.myappmovielastup.retrofit.RetrofitClient;
 import com.example.myappmovielastup.utils.Utils;
 import com.google.android.material.navigation.NavigationView;
@@ -40,7 +41,6 @@ import java.util.List;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
-import okhttp3.internal.Util;
 
 public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
@@ -50,11 +50,11 @@ public class MainActivity extends AppCompatActivity {
     ListView listViewManHinhChinh;
     DrawerLayout drawerLayout;
     LoaiPhimAdapter loaiPhimAdapter;
-    List<LoaiPhim> mangloaisp;
+    List<LoaiPhim> mangloaiphim;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
-    ApiBanHang apiBanHang;
-    List<PhimMoi> mangspmoi;
-    PhimMoiAdapter spAdapter;
+    ApiPhim apiPhim;
+    List<PhimMoi> mangphimmoi;
+    PhimMoiAdapter phimAdapter;
     NotificationBadge badge;
     FrameLayout frameLayout;
 
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        apiBanHang = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanHang.class);
+        apiPhim = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiPhim.class);
 
         Anhxa();
         ActionBar();
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             //Toast.makeText(getApplicationContext(), "ok", Toast.LENGTH_LONG).show();
             ActionViewFlipper();
             getLoaiSanPham();
-            getSpMoi();
+            getphimMoi();
             getEventClick();
         } else {
             Toast.makeText(getApplicationContext(), "khong co ket noi", Toast.LENGTH_LONG).show();
@@ -85,12 +85,12 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
-                        Intent trangchu = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(trangchu);
+                        Intent dangnhap = new Intent(getApplicationContext(), LoginActivity.class);
+                        startActivity(dangnhap);
                         break;
                     case 1:
-                        Intent dangnhap = new Intent(getApplicationContext(), GiaVeActivity.class);
-                        startActivity(dangnhap);
+                        Intent giave = new Intent(getApplicationContext(), GiaVeActivity.class);
+                        startActivity(giave);
                         break;
                     case 2:
                         Intent dangphimP = new Intent(getApplicationContext(), TheLoaiActivity.class);
@@ -112,21 +112,25 @@ public class MainActivity extends AppCompatActivity {
                         dangphimT18.putExtra("theloaiid", 18);
                         startActivity(dangphimT18);
                         break;
+                    case 6:
+                        Intent quanli = new Intent(getApplicationContext(), QuanLiActivity.class);
+                        startActivity(quanli);
+                        break;
                 }
             }
         });
     }
 
-    private void getSpMoi() {
-        compositeDisposable.add(apiBanHang.getSpMoi()
+    private void getphimMoi() {
+        compositeDisposable.add(apiPhim.getPhimMoi()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         sanPhamMoiModel -> {
                             if (sanPhamMoiModel.isSuccess()) {
-                                    mangspmoi = sanPhamMoiModel.getResult();
-                                    spAdapter = new PhimMoiAdapter(getApplicationContext(), mangspmoi);
-                                    recyclerViewManHinhChinh.setAdapter(spAdapter);
+                                    mangphimmoi = sanPhamMoiModel.getResult();
+                                    phimAdapter = new PhimMoiAdapter(getApplicationContext(), mangphimmoi);
+                                    recyclerViewManHinhChinh.setAdapter(phimAdapter);
 
                             }
                         }
@@ -137,34 +141,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getLoaiSanPham() {
-        compositeDisposable.add(apiBanHang.getLoaiSp()
+        compositeDisposable.add(apiPhim.getLoaiPhim()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        loaiSpModel -> {
-                            mangloaisp = loaiSpModel.getResult();
+                        loaiphimModel -> {
+                            mangloaiphim = loaiphimModel.getResult();
+                            mangloaiphim.add(new LoaiPhim("Quản lí", ""));
                             // khoi tao adapter
-                            loaiPhimAdapter = new LoaiPhimAdapter(getApplicationContext(), mangloaisp);
+                            loaiPhimAdapter = new LoaiPhimAdapter(getApplicationContext(), mangloaiphim);
                             listViewManHinhChinh.setAdapter(loaiPhimAdapter);
-
-//                            if (loaiSpModel.isSuccess()) {
-//                                // Kiểm tra xem kết quả có null hoặc rỗng không
-//                                if (loaiSpModel.getResult() != null && !loaiSpModel.getResult().isEmpty()) {
-//                                    String ten = loaiSpModel.getResult().get(1).gettensanpham();
-//                                    if (ten != null && !ten.isEmpty()) {
-//                                        Toast.makeText(getApplicationContext(), ten, Toast.LENGTH_LONG).show();
-//                                    } else {
-//                                        Toast.makeText(getApplicationContext(), "Tên không hợp lệ", Toast.LENGTH_LONG).show();
-//                                    }
-//                                } else {
-//                                    Toast.makeText(getApplicationContext(), "Dữ liệu không hợp lệ", Toast.LENGTH_LONG).show();
-//                                }
-//                            }
                         }
-//                        , throwable -> {
-//                            // Xử lý lỗi ở đây
-//                            Toast.makeText(getApplicationContext(), "Có lỗi xảy ra: " + throwable.getMessage(), Toast.LENGTH_LONG).show();
-//                        }
                 ));
     }
 
@@ -214,8 +201,8 @@ public class MainActivity extends AppCompatActivity {
         badge = findViewById(R.id.main_sl);
         frameLayout = findViewById(R.id.main_framegiohang);
         // khoi tao list
-        mangloaisp = new ArrayList<>();
-        mangspmoi = new ArrayList<>();
+        mangloaiphim = new ArrayList<>();
+        mangphimmoi = new ArrayList<>();
 
         if (Utils.manggiohang == null) {
             Utils.manggiohang = new ArrayList<>();

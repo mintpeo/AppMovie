@@ -1,10 +1,8 @@
 package com.example.myappmovielastup.activity.login;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,8 +13,7 @@ import androidx.appcompat.widget.AppCompatButton;
 
 import com.example.myappmovielastup.R;
 import com.example.myappmovielastup.activity.MainActivity;
-import com.example.myappmovielastup.databinding.ActivityLoginBinding;
-import com.example.myappmovielastup.retrofit.ApiBanHang;
+import com.example.myappmovielastup.retrofit.ApiPhim;
 import com.example.myappmovielastup.retrofit.RetrofitClient;
 import com.example.myappmovielastup.utils.Utils;
 
@@ -29,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView textViewSignup;
     EditText emailInput, passInput;
     AppCompatButton btnLogin;
-    ApiBanHang api;
+    ApiPhim api;
     CompositeDisposable com = new CompositeDisposable();
 
 
@@ -84,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initView() {
         Paper.init(this);
-        api = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanHang.class);
+        api = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiPhim.class);
         textViewSignup = findViewById(R.id.signupRedirectText);
         emailInput = findViewById(R.id.emailLogin);
         passInput = findViewById(R.id.passLogin);

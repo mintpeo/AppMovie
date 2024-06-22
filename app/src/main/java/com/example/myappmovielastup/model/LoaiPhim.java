@@ -6,6 +6,11 @@ public class LoaiPhim {
     String name;
     String image;
 
+    public LoaiPhim(String name, String image) {
+        this.name = name;
+        this.image = image;
+    }
+
     public int getId() {
         return id;
     }

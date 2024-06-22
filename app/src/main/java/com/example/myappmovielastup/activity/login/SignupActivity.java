@@ -3,7 +3,6 @@ package com.example.myappmovielastup.activity.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -12,15 +11,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import com.example.myappmovielastup.R;
-import com.example.myappmovielastup.model.User;
-import com.example.myappmovielastup.retrofit.ApiBanHang;
+import com.example.myappmovielastup.retrofit.ApiPhim;
 import com.example.myappmovielastup.retrofit.RetrofitClient;
 import com.example.myappmovielastup.utils.Utils;
 
-import java.nio.charset.StandardCharsets;
-
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.core.Scheduler;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
@@ -28,7 +23,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class SignupActivity extends AppCompatActivity {
     EditText emailInput, passInput, cfPassInput;
     AppCompatButton btnSignup;
-    ApiBanHang api;
+    ApiPhim api;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Override
@@ -87,7 +82,7 @@ public class SignupActivity extends AppCompatActivity {
 
     private void initView() {
 
-        api = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanHang.class);
+        api = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiPhim.class);
         emailInput = findViewById((R.id.emailSignup));
         passInput = findViewById((R.id.passSignup));
         cfPassInput = findViewById((R.id.cfPassSignup));

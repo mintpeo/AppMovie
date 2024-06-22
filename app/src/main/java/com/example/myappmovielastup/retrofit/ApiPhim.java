@@ -1,6 +1,7 @@
 package com.example.myappmovielastup.retrofit;
 
 import com.example.myappmovielastup.model.LoaiPhimModel;
+import com.example.myappmovielastup.model.MessageModel;
 import com.example.myappmovielastup.model.PhimMoiModel;
 import com.example.myappmovielastup.model.UserModel;
 
@@ -10,14 +11,14 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
-public interface ApiBanHang {
+public interface ApiPhim {
     // thanh menu
     @GET("toolbarproduct.php")
-    Observable<LoaiPhimModel> getLoaiSp();
+    Observable<LoaiPhimModel> getLoaiPhim();
 
     // hien thi san pham
     @GET("sanphammoi.php")
-    Observable<PhimMoiModel> getSpMoi();
+    Observable<PhimMoiModel> getPhimMoi();
 
     // phan loai phim
     @POST("dangphim.php")
@@ -43,4 +44,16 @@ public interface ApiBanHang {
             @Field("pass") String pass
     );
 
+    @POST("themphim.php")
+    @FormUrlEncoded
+    Observable<MessageModel> insertPhim(
+            @Field("tenphim") String tenphim,
+            @Field("hinhanh") String hinhanh,
+            @Field("daodien") String daodien,
+            @Field("dienvien") String dienvien,
+            @Field("thoiluong") int thoiluong,
+            @Field("ngonngu") String ngonngu,
+            @Field("mota") String mota,
+            @Field("theloaiid") int theloaiid
+    );
 }

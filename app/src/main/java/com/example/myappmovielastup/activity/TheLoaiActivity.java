@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myappmovielastup.R;
 import com.example.myappmovielastup.adapter.TheLoaiAdapter;
 import com.example.myappmovielastup.model.PhimMoi;
-import com.example.myappmovielastup.retrofit.ApiBanHang;
+import com.example.myappmovielastup.retrofit.ApiPhim;
 import com.example.myappmovielastup.retrofit.RetrofitClient;
 import com.example.myappmovielastup.utils.Utils;
 
@@ -29,7 +29,7 @@ public class TheLoaiActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     RecyclerView recyclerView;
-    ApiBanHang apiBanHang;
+    ApiPhim apiPhim;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     //int page = 0;
     int theloaiid;
@@ -43,7 +43,7 @@ public class TheLoaiActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_the_loai);
-        apiBanHang = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanHang.class);
+        apiPhim = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiPhim.class);
         theloaiid = getIntent().getIntExtra("theloaiid", 1);
         Anhxa();
         ActionToolBar();
@@ -95,7 +95,7 @@ public class TheLoaiActivity extends AppCompatActivity {
     }
 
     private void getData() {
-        compositeDisposable.add(apiBanHang.getPhim(theloaiid)
+        compositeDisposable.add(apiPhim.getPhim(theloaiid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
