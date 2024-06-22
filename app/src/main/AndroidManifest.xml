@@ -17,6 +17,9 @@
         android:theme="@style/Theme.MyAppMovieLastUp"
         tools:targetApi="31">
         <activity
+            android:name=".activity.SearchActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.ThemPhimActivity"
             android:exported="false" />
         <activity

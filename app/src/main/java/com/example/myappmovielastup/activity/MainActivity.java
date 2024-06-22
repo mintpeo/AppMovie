@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     List<LoaiPhim> mangloaiphim;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     ApiPhim apiPhim;
+    ImageView imgsearch;
     List<PhimMoi> mangphimmoi;
     PhimMoiAdapter phimAdapter;
     NotificationBadge badge;
@@ -189,6 +190,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void Anhxa() {
+        imgsearch = findViewById(R.id.imgsearch);
         toolbar = findViewById(R.id.toolbarmanhinhchinh);
         viewFlipper = findViewById(R.id.viewlipper);
         recyclerViewManHinhChinh = findViewById(R.id.recyclerview);
@@ -203,6 +205,13 @@ public class MainActivity extends AppCompatActivity {
         // khoi tao list
         mangloaiphim = new ArrayList<>();
         mangphimmoi = new ArrayList<>();
+        imgsearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
 
         if (Utils.manggiohang == null) {
             Utils.manggiohang = new ArrayList<>();

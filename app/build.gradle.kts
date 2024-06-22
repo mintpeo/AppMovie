@@ -46,6 +46,8 @@ dependencies {
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.play.services.maps)
+//    implementation(libs.filament.android)
+//    implementation(libs.monitor)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -60,6 +62,7 @@ dependencies {
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation ("com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0")
+    implementation ("com.android.support.constraint:constraint-layout:1.1.3")
     // bradge
     implementation ("com.nex3z:notification-badge:1.0.4")
     // eventBus
