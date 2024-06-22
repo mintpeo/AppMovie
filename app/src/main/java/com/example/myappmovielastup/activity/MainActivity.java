@@ -112,10 +112,10 @@ public class MainActivity extends AppCompatActivity {
                         dangphimT18.putExtra("theloaiid", 18);
                         startActivity(dangphimT18);
                         break;
-                    case 6:
-                        Intent quanli = new Intent(getApplicationContext(), QuanLiActivity.class);
-                        startActivity(quanli);
-                        break;
+//                    case 6:
+//                        Intent quanli = new Intent(getApplicationContext(), QuanLiActivity.class);
+//                        startActivity(quanli);
+//                        break;
                 }
             }
         });
