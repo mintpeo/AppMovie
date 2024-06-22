@@ -32,6 +32,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
 }
 
@@ -63,6 +64,7 @@ dependencies {
     implementation ("com.nex3z:notification-badge:1.0.4")
     // eventBus
     implementation("org.greenrobot:eventbus:3.3.1")
+    // paper
     implementation ("io.github.pilgr:paperdb:2.7.2")
 
 }
