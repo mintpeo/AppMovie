@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Hãy điền email", Toast.LENGTH_SHORT).show();
                     } else if (TextUtils.isEmpty(pass)) {
                         Toast.makeText(getApplicationContext(), "Hãy điền mật khẩu", Toast.LENGTH_SHORT).show();
-
+//Mã hóa mật khẩu đã nhập mang đi so sánh với mật khẩu đã mã hóa trong db
                     } else {
                         com.add(api.login(email, Authentication.getInstance().hashPass(pass))
                                 .subscribeOn(Schedulers.io())
