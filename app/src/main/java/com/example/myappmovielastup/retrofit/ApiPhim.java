@@ -1,7 +1,7 @@
 package com.example.myappmovielastup.retrofit;
 
 import com.example.myappmovielastup.model.LoaiPhimModel;
-//import com.example.myappmovielastup.model.MessageModel;
+import com.example.myappmovielastup.model.MessageModel;
 import com.example.myappmovielastup.model.PhimMoiModel;
 import com.example.myappmovielastup.model.UserModel;
 
@@ -44,16 +44,16 @@ public interface ApiPhim {
             @Field("pass") String pass
     );
 
-//    @POST("themphim.php")
-//    @FormUrlEncoded
-//    Observable<MessageModel> insertPhim(
-//            @Field("tenphim") String tenphim,
-//            @Field("hinhanh") String hinhanh,
-//            @Field("daodien") String daodien,
-//            @Field("dienvien") String dienvien,
-//            @Field("thoiluong") int thoiluong,
-//            @Field("ngonngu") String ngonngu,
-//            @Field("mota") String mota,
-//            @Field("theloaiid") int theloaiid
-//    );
+    @POST("themphim.php")
+    @FormUrlEncoded
+    Observable<MessageModel> insertPhim(
+            @Field("tenphim") String tenphim,
+            @Field("hinhanh") String hinhanh,
+            @Field("daodien") String daodien,
+            @Field("dienvien") String dienvien,
+            @Field("thoiluong") int thoiluong,
+            @Field("ngonngu") String ngonngu,
+            @Field("mota") String mota,
+            @Field("theloaiid") int theloaiid
+    );
 }
