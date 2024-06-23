@@ -14,9 +14,19 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
+
+        <Button
+            android:layout_gravity="right"
+            android:id="@+id/quanli_them"
+            android:text="Thêm"
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </Button>
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
+        android:id="@+id/quanliphim"
         app:layout_constraintTop_toBottomOf="@id/quanli_toolbar"
         android:orientation="horizontal"
         android:gravity="center"
@@ -24,16 +34,8 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/quanli_them"
-            android:text="Thêm"
-            android:layout_margin="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </Button>
-
-        <Button
             android:id="@+id/quanli_xoa"
-            android:text="Xoá"
+            android:text="Sửa"
             android:layout_margin="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -41,7 +43,7 @@
 
         <Button
             android:id="@+id/quanli_sua"
-            android:text="Sửa"
+            android:text="Xoá"
             android:layout_margin="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
