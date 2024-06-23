@@ -59,7 +59,9 @@ public class ThemPhimActivity extends AppCompatActivity {
         theloai.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 1) {
+                if (position == 0) {
+                    theloaiid = 0;
+                } else if (position == 1) {
                     theloaiid = 1;
                 } else if (position == 2) {
                     theloaiid = 13;
@@ -90,17 +92,17 @@ public class ThemPhimActivity extends AppCompatActivity {
         String str_Daodien = binding.themphimDaodien.getText().toString().trim();
         String str_Dienvien = binding.themphimDienvien.getText().toString().trim();
         String str_Thoiluong = binding.themphimThoiluong.getText().toString().trim();
-        Integer thoiluong = Integer.parseInt(str_Thoiluong);
+        //int thoiluong = Integer.parseInt(str_Thoiluong);
         String str_Ngonngu = binding.themphimNgonngu.getText().toString().trim();
         String str_Mota = binding.themphimMota.getText().toString().trim();
 
         if (TextUtils.isEmpty(str_Tenphim) || TextUtils.isEmpty(str_Hinhanh) ||
                 TextUtils.isEmpty(str_Daodien) || TextUtils.isEmpty(str_Dienvien) ||
-                thoiluong == 0 || TextUtils.isEmpty(str_Ngonngu) ||
+                TextUtils.isEmpty(str_Thoiluong) || TextUtils.isEmpty(str_Ngonngu) ||
                 TextUtils.isEmpty(str_Mota) || theloaiid == 0) {
             Toast.makeText(getApplicationContext(), "Vui lòng nhập đủ thông tin", Toast.LENGTH_LONG).show();
         } else {
-            compositeDisposable.add(apiPhim.insertPhim(str_Tenphim, str_Hinhanh, str_Daodien, str_Dienvien, thoiluong, str_Ngonngu, str_Mota, theloaiid)
+            compositeDisposable.add(apiPhim.insertPhim(str_Tenphim, str_Hinhanh, str_Daodien, str_Dienvien, str_Thoiluong, str_Ngonngu, str_Mota, theloaiid)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(

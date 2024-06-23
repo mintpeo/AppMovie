@@ -57,7 +57,7 @@ public interface ApiPhim {
             @Field("hinhanh") String hinhanh,
             @Field("daodien") String daodien,
             @Field("dienvien") String dienvien,
-            @Field("thoiluong") int thoiluong,
+            @Field("thoiluong") String thoiluong,
             @Field("ngonngu") String ngonngu,
             @Field("mota") String mota,
             @Field("theloaiid") int theloaiid

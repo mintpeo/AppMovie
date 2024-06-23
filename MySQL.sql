@@ -1,13 +1,13 @@
 CREATE TABLE `productmovie`.`phim` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `ten` TEXT NULL,
-  `hinhanh` TEXT NULL,
-  `daodien` TEXT NULL,
-  `dienvien` TEXT NULL,
-  `thoiluong` INT NULL,
-  `ngonngu` TEXT NULL,
+  `ten` TEXT NOT NULL,
+  `hinhanh` TEXT NOT NULL,
+  `daodien` TEXT NOT NULL,
+  `dienvien` TEXT NOT NULL,
+  `thoiluong` TEXT NOT NULL,
+  `ngonngu` TEXT NOT NULL,
   `theloaiid` INT NOT NULL,
-  `mota` TEXT NULL,
+  `mota` TEXT NOT NULL,
   PRIMARY KEY (`id`));
   
 INSERT INTO phim VALUES ('1', 'Garfield: Mèo Béo Siêu Quậy', 'https://files.betacorp.vn/media%2fimages%2f2024%2f05%2f28%2f310524%2Dgarfield%2D150640%2D280524%2D95.jpg', 'Mark Dindal', 'Chris Pratt, Samuel L. Jackson, Nicholas Hoult', '101', 'Tiếng Việt', '1', 'Trong bộ phim hoạt hình này, chú mèo mê đồ ăn Garfield bị cuốn vào một vụ trộm để giúp cha mình - một tên trộm đường phố, khỏi một chú mèo biểu diễn khác đang muốn trả thù ông. Bắt đầu như một mối quan hệ hợp tác miễn cưỡng và kết thúc bằng việc Garfield và Vic nhận ra rằng cha con họ không hề khác biệt như vẻ ngoài của mình.');
