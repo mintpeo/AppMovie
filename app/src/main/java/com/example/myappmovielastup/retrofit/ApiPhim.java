@@ -35,7 +35,7 @@ public interface ApiPhim {
             @Field("search") String search
     );
     // Đăng kí
-    @POST("register.php")
+    @POST("signup.php")
     @FormUrlEncoded
     Observable<UserModel> signup(
             @Field("email") String email,

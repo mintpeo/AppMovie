@@ -65,8 +65,8 @@ public class SignupActivity extends AppCompatActivity {
             if (!pass.equals(cfPass)) {
                 Toast.makeText(getApplicationContext(), "Mật khẩu không trùng khớp", Toast.LENGTH_SHORT).show();
             } else {
-
-                compositeDisposable.add(api.signup(email, Authentication.getInstance().hashPass(pass))
+//Bỏ phần authentication
+                compositeDisposable.add(api.signup(email, pass)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
@@ -80,7 +80,7 @@ public class SignupActivity extends AppCompatActivity {
                                         startActivity(intent);
                                         finish();
                                     } else {
-                                        Toast.makeText(getApplicationContext(), userModel.getMess(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), userModel.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 }, throwable -> Toast.makeText(getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show()
                         )

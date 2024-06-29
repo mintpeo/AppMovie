@@ -4,7 +4,7 @@ import java.util.List;
 
 public class UserModel {
     boolean isSuccess;
-    String mess;
+    String message;
     List<User> result;
 
     public boolean isSuccess() {
@@ -15,12 +15,12 @@ public class UserModel {
         isSuccess = success;
     }
 
-    public String getMess() {
-        return mess;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMess(String mess) {
-        this.mess = mess;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public List<User> getResult() {
