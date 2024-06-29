@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Hãy điền mật khẩu", Toast.LENGTH_SHORT).show();
 //Mã hóa mật khẩu đã nhập mang đi so sánh với mật khẩu đã mã hóa trong db
                     } else {
-                        com.add(api.login(email, Authentication.getInstance().hashPass(pass))
+                        com.add(api.login(email, pass)
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribe(
@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 startActivity(intent);
                                                 finish();
                                             } else {
-                                                Toast.makeText(getApplicationContext(), userModel.getMess(), Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(getApplicationContext(), userModel.getMessage(), Toast.LENGTH_SHORT).show();
                                             }
                                         }, throwable -> Toast.makeText(getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show()
                                 )
