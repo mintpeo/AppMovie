@@ -65,7 +65,7 @@ public class SignupActivity extends AppCompatActivity {
             if (!pass.equals(cfPass)) {
                 Toast.makeText(getApplicationContext(), "Mật khẩu không trùng khớp", Toast.LENGTH_SHORT).show();
             } else {
-
+//Bỏ phần authentication
                 compositeDisposable.add(api.signup(email, pass)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())

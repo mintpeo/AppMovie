@@ -52,8 +52,8 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Hãy điền email", Toast.LENGTH_SHORT).show();
                     } else if (TextUtils.isEmpty(pass)) {
                         Toast.makeText(getApplicationContext(), "Hãy điền mật khẩu", Toast.LENGTH_SHORT).show();
-//Mã hóa mật khẩu đã nhập mang đi so sánh với mật khẩu đã mã hóa trong db
                     } else {
+                        //Bỏ phần authentication
                         com.add(api.login(email, pass)
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
