@@ -1,0 +1,25 @@
+<!-- res/layout/item_booking.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tvMaVe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mã Vé"/>
+
+    <TextView
+        android:id="@+id/tvMaKH"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mã Khách Hàng"/>
+
+    <TextView
+        android:id="@+id/tvNgayBanVe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ngày Bán Vé"/>
+</LinearLayout>
