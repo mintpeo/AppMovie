@@ -40,7 +40,6 @@ import java.util.List;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
-import okhttp3.internal.Util;
 
 public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
@@ -63,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        apiBanHang = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanHang.class);
+        apiBanHang = RetrofitClient.getInstance().create(ApiBanHang.class);
 
         Anhxa();
         ActionBar();

@@ -16,7 +16,6 @@ import com.example.myappmovielastup.adapter.TheLoaiAdapter;
 import com.example.myappmovielastup.model.PhimMoi;
 import com.example.myappmovielastup.retrofit.ApiBanHang;
 import com.example.myappmovielastup.retrofit.RetrofitClient;
-import com.example.myappmovielastup.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +42,7 @@ public class TheLoaiActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_the_loai);
-        apiBanHang = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanHang.class);
+        apiBanHang = RetrofitClient.getInstance().create(ApiBanHang.class);
         theloaiid = getIntent().getIntExtra("theloaiid", 1);
         Anhxa();
         ActionToolBar();

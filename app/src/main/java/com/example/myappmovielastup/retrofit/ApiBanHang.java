@@ -1,9 +1,15 @@
 package com.example.myappmovielastup.retrofit;
 
+import com.example.myappmovielastup.model.Booking;
+import com.example.myappmovielastup.model.Customer;
 import com.example.myappmovielastup.model.LoaiPhimModel;
+import com.example.myappmovielastup.model.PhimMoi;
 import com.example.myappmovielastup.model.PhimMoiModel;
 
+import java.util.List;
+
 import io.reactivex.rxjava3.core.Observable;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -25,4 +31,11 @@ public interface ApiBanHang {
             //@Field("page") int page,
             @Field("theloaiid") int theloaiid
     );
+    @GET("movies")
+    Call<List<PhimMoi>> getPhimMoi();
+
+    @GET("bookings")  // Thay "bookings" bằng endpoint thực tế của API
+    Call<List<Booking>> getBookings();
+    @GET("customer")
+    Call<List<Customer>> getCustomer();
 }
