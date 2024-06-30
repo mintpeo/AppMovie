@@ -10,6 +10,7 @@ import com.example.myappmovielastup.model.PhimMoi;
 import com.example.myappmovielastup.retrofit.ApiBanHang;
 import com.example.myappmovielastup.retrofit.RetrofitClient;
 
+import com.example.myappmovielastup.utils.Utils;
 import java.util.List;
 
 import retrofit2.Call;
@@ -27,7 +28,8 @@ public class ManageMoviesActivity extends AppCompatActivity {
 
         lvMovies = findViewById(R.id.lvMovies);
 
-        ApiBanHang apiService = RetrofitClient.getInstance().create(ApiBanHang.class);
+        ApiBanHang apiService = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanHang.class);
+
         Call<List<PhimMoi>> call = apiService.getPhimMoi();
 
         call.enqueue(new Callback<List<PhimMoi>>() {

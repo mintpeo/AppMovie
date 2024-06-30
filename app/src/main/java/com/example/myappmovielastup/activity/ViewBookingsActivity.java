@@ -4,12 +4,14 @@ package com.example.myappmovielastup.activity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myappmovielastup.R;
 import com.example.myappmovielastup.model.Booking;
 import com.example.myappmovielastup.retrofit.ApiBanHang;
 import com.example.myappmovielastup.retrofit.RetrofitClient;
+import com.example.myappmovielastup.utils.Utils;
 
 import java.util.List;
 
@@ -28,7 +30,9 @@ public class ViewBookingsActivity extends AppCompatActivity {
 
         lvBookings = findViewById(R.id.lvBookings);
 
-        ApiBanHang apiService = RetrofitClient.getInstance().create(ApiBanHang.class);
+
+        ApiBanHang apiService = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanHang.class);
+
         Call<List<Booking>> call = apiService.getBookings();
 
         call.enqueue(new Callback<List<Booking>>() {
